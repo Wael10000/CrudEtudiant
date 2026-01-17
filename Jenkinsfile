@@ -17,7 +17,7 @@ pipeline {
           stage('build') {
             steps {
                 // Clone your Git repository
-            mvn compile
+            sh 'mvn compile'
             }
         }
     }
