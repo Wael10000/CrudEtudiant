@@ -41,6 +41,12 @@ pipeline {
                     -Dsonar.login=${SONAR_TOKEN}
                 """
             }
+
+         stage('Test') {
+            steps {
+               echo 'Running unit tests'
+              sh 'mvn clean test'
+            }
         }
     }
 }
