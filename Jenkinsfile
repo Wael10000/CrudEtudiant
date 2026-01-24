@@ -31,15 +31,15 @@ pipeline {
             }
         }
 
-       stage('SonarQube Analysis') {
-           steps {
+        stage('SonarQube Analysis') {
+            steps {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-            sh "mvn sonar:sonar \
+            sh """mvn clean test sonar:sonar \
                 -Dsonar.projectKey=CrudEtudiant \
                 -Dsonar.host.url=http://192.168.33.10:9000 \
-                -Dsonar.login=$SONAR_TOKEN \
+                -Dsonar.token=$SONAR_TOKEN \
                 -Dsonar.junit.reportPaths=target/surefire-reports \
-                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"
+                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"""
             }
         }
     }
