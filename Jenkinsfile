@@ -12,7 +12,7 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
+        stage('GIT') {
             steps {
                 git branch: 'master', url: 'https://github.com/Wael10000/CrudEtudiant.git'
             }
@@ -25,12 +25,7 @@ pipeline {
             }
         }
 
-        stage('GIT Info') {
-            steps {
-                echo 'Getting project from Git'
-            }
-        }
-
+      
         stage('SonarQube Analysis') {
             steps {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
@@ -43,5 +38,6 @@ pipeline {
             }
         }
     }
+}
 }
 
