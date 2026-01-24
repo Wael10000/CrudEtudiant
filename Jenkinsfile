@@ -39,13 +39,9 @@ pipeline {
                     -Dsonar.projectKey=CrudEtudiant \
                     -Dsonar.host.url=http://192.168.33.10:9000 \
                     -Dsonar.login=${SONAR_TOKEN}
+                    -Dsonar.junit.reportPaths=target/surefire-reports \
+                    -Dsonar.jacoco.reportPaths=target/jacoco.exec
                 """
-            }
-
-         stage('Test') {
-            steps {
-               echo 'Running unit tests'
-              sh 'mvn clean test'
             }
         }
     }
