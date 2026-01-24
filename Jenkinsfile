@@ -28,7 +28,7 @@ pipeline {
       
         stage('SonarQube Analysis') {
             steps {
-        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+        withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN')]) {
             sh """mvn clean test sonar:sonar \
                 -Dsonar.projectKey=CrudEtudiant \
                 -Dsonar.host.url=http://192.168.33.10:9000 \
@@ -38,6 +38,6 @@ pipeline {
             }
         }
     }
-}
+  }
 }
 
