@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                // Clone your Git repository
+                // clone your Git repository
                 git branch: 'master', url: 'https://github.com/Wael10000/CrudEtudiant.git'
             }
         }
@@ -19,6 +19,13 @@ pipeline {
                 // Clone your Git repository
             sh 'mvn compile'
             }
+          }
+        stage ('GIT')
+              steps {
+                  echo 'getting project from git'
         }
-    }
+              stage ('MVN SONARQUBE'){
+                     steps {
+                        MVN sonar : sonar
+                     }
 }
