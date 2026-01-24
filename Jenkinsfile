@@ -1,37 +1,47 @@
 pipeline {
     agent any
 
+    environment {
+        SONAR_TOKEN = credentials('sonar-token-id') 
+    }
+
     stages {
         stage('Hello') {
             steps {
-                echo 'devOps Project'
+                echo 'DevOps Project'
             }
         }
 
         stage('Checkout') {
             steps {
-                // clone your Git repository
                 git branch: 'master', url: 'https://github.com/Wael10000/CrudEtudiant.git'
             }
         }
-          stage('build') {
+
+        stage('Build') {
             steps {
-                // Clone your Git repository
-            sh 'mvn compile'
+                echo 'Building the project'
+                sh 'mvn clean compile'
             }
-          }
-        stage ('GIT')
-              steps {
-                  echo 'getting project from git'
         }
-              stage ('MVN SONARQUBE'){
-                     steps {
-                         sh """
-                        MVN sonar : sonar \
+
+        stage('GIT Info') {
+            steps {
+                echo 'Getting project from Git'
+            }
+        }
+
+        stage('MVN SONARQUBE') {
+            steps {
+                echo 'Running SonarQube'
+                sh """
+                    mvn sonar:sonar \
                     -Dsonar.projectKey=CrudEtudiant \
-                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.host.url=http://192.168.33.10:9000 \
                     -Dsonar.login=${SONAR_TOKEN}
-                    """
-                     }
-              }
+                """
+            }
+        }
+    }
 }
+
