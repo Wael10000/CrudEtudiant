@@ -26,6 +26,12 @@ pipeline {
         }
               stage ('MVN SONARQUBE'){
                      steps {
-                        MVN sonar : sonar
+                         sh """
+                        MVN sonar : sonar \
+                    -Dsonar.projectKey=CrudEtudiant \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=${SONAR_TOKEN}
+                    """
                      }
+              }
 }
