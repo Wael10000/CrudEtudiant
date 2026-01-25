@@ -18,25 +18,21 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building the project'
-                sh 'mvn clean verify compile'
-                
-            }
-        }
+       stage('Build & Test') {
+    steps {
+        sh 'mvn clean verify'
+    }
+}
 
-      
-        stage('SonarQube Analysis') {
-            steps {
-        withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN')]) {
-            sh """mvn clean test sonar:sonar \
+stage('SonarQube Analysis') {
+    steps {
+        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+            sh """mvn sonar:sonar \
                 -Dsonar.projectKey=CrudEtudiant \
                 -Dsonar.host.url=http://192.168.33.10:9000 \
-                -Dsonar.token=$SONAR_TOKEN \
-                -Dsonar.junit.reportPaths=target/surefire-reports \
-                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"""
-            }
+                -Dsonar.login=$SONAR_TOKEN \
+                -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco.xml"""
+          }
         }
     }
   }
