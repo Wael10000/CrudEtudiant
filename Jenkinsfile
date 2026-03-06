@@ -31,6 +31,7 @@ stage('SonarQube Analysis') {
                 -Dsonar.projectKey=CrudEtudiant \
                 -Dsonar.host.url=http://192.168.33.10:9000 \
                 -Dsonar.login=$SONAR_TOKEN \
+                -Dsonar.junit.reportPaths=target/surefire-reports \
                 -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco.xml"""
           }
         }
