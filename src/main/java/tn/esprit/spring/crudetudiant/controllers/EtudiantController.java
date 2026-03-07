@@ -8,6 +8,7 @@ import tn.esprit.spring.crudetudiant.services.IEtudiant;
 import java.util.List;
 
 @RestController
+@RequestMapping("/Etudiants")
 @AllArgsConstructor
 public class EtudiantController {
 
